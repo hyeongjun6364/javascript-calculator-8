@@ -19,6 +19,8 @@ class App {
     return await Console.print(MESSAGES.PRINT_RESULT + result);
   }
 
+  extractNumbers(inputString) {}
+
   setSeparator(inputString) {
     this.#separators = DEFAULT_SEPARATORS;
     const customSeparator = inputString.match(CUSTOM_SEPARATOR_PATTERN)?.[1];

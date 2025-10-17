@@ -1,4 +1,3 @@
 const DEFAULT_SEPARATORS = [',', ':'];
-const CUSTOM_SEPARATOR_PATTERN = /^\/\/(.)?\\n/;
-
+const CUSTOM_SEPARATOR_PATTERN = /^\/\/([^0-9]+)\\n/;
 export { DEFAULT_SEPARATORS, CUSTOM_SEPARATOR_PATTERN };
