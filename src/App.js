@@ -9,15 +9,16 @@ class App {
     const INPUT_STRING = await this.userInput(MESSAGES.USER_INPUT);
     this.setSeparator(INPUT_STRING);
     const numbers = this.extractNumbers(INPUT_STRING);
-    await this.printResult(result);
+    const result = this.sumNumbers(numbers);
+    this.printResult(result);
   }
 
   async userInput(content) {
     return await Console.readLineAsync(content);
   }
 
-  async printResult(result) {
-    return await Console.print(MESSAGES.PRINT_RESULT + result);
+  printResult(result) {
+    return Console.print(MESSAGES.PRINT_RESULT + result);
   }
 
   setSeparator(inputString) {
@@ -39,6 +40,10 @@ class App {
     const parseInput = inputString.slice(startIndex);
     const splitBySeparators = parseInput.split(separatorsRegex).map((num) => Number(num));
     return splitBySeparators;
+  }
+
+  sumNumbers(numbers) {
+    return numbers.reduce((acc, cur) => acc + cur, 0);
   }
 }
 
