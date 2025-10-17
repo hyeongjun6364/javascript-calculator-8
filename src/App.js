@@ -1,12 +1,14 @@
 import { Console } from '@woowacourse/mission-utils';
 import MESSAGES from './constants/message.js';
 import { DEFAULT_SEPARATORS, CUSTOM_SEPARATOR_PATTERN } from './constants/separator.js';
+import { inputValidation } from './validation.js';
 
 class App {
   #separators;
 
   async run() {
     const INPUT_STRING = await this.userInput(MESSAGES.USER_INPUT);
+    inputValidation(INPUT_STRING);
     this.setSeparator(INPUT_STRING);
     const numbers = this.extractNumbers(INPUT_STRING);
     const result = this.sumNumbers(numbers);
