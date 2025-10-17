@@ -8,7 +8,8 @@ class App {
   async run() {
     const INPUT_STRING = await this.userInput(MESSAGES.USER_INPUT);
     this.setSeparator(INPUT_STRING);
-    this.printResult(this.#separators);
+    const numbers = this.extractNumbers(INPUT_STRING);
+    await this.printResult(result);
   }
 
   async userInput(content) {
@@ -19,14 +20,25 @@ class App {
     return await Console.print(MESSAGES.PRINT_RESULT + result);
   }
 
-  extractNumbers(inputString) {}
-
   setSeparator(inputString) {
-    this.#separators = DEFAULT_SEPARATORS;
+    this.#separators = [...DEFAULT_SEPARATORS];
     const customSeparator = inputString.match(CUSTOM_SEPARATOR_PATTERN)?.[1];
     if (customSeparator) {
       this.#separators.push(customSeparator);
     }
+  }
+
+  extractNumbers(inputString) {
+    const separatorsRegex = new RegExp(`[${this.#separators.join('')}]`);
+
+    const hasCustomSeparator = this.#separators.some(
+      (separator) => !DEFAULT_SEPARATORS.includes(separator),
+    );
+
+    const startIndex = hasCustomSeparator ? inputString.indexOf('\\n') + 2 : 0;
+    const parseInput = inputString.slice(startIndex);
+    const splitBySeparators = parseInput.split(separatorsRegex).map((num) => Number(num));
+    return splitBySeparators;
   }
 }
 
