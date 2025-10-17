@@ -8,10 +8,17 @@ class App {
 
   async run() {
     const INPUT_STRING = await this.userInput(MESSAGES.USER_INPUT);
-    inputValidation(INPUT_STRING);
+
     this.setSeparator(INPUT_STRING);
-    const numbers = this.extractNumbers(INPUT_STRING);
+
+    const parseInput = this.parseInput(INPUT_STRING);
+
+    const numbers = this.extractNumbers(parseInput);
+
+    inputValidation(parseInput, this.#separators);
+
     const result = this.sumNumbers(numbers);
+
     this.printResult(result);
   }
 
@@ -31,17 +38,20 @@ class App {
     }
   }
 
-  extractNumbers(inputString) {
+  extractNumbers(parseInput) {
     const separatorsRegex = new RegExp(`[${this.#separators.join('')}]`);
 
+    const splitBySeparators = parseInput.split(separatorsRegex).map((num) => Number(num));
+    return splitBySeparators;
+  }
+
+  parseInput(inputString) {
     const hasCustomSeparator = this.#separators.some(
       (separator) => !DEFAULT_SEPARATORS.includes(separator),
     );
 
     const startIndex = hasCustomSeparator ? inputString.indexOf('\\n') + 2 : 0;
-    const parseInput = inputString.slice(startIndex);
-    const splitBySeparators = parseInput.split(separatorsRegex).map((num) => Number(num));
-    return splitBySeparators;
+    return inputString.slice(startIndex);
   }
 
   sumNumbers(numbers) {
