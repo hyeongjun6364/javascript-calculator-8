@@ -11,11 +11,11 @@ class App {
 
     this.setSeparator(INPUT_STRING);
 
-    const parseInput = this.parseInput(INPUT_STRING);
+    const numberString = this.parseInput(INPUT_STRING);
 
-    const numbers = this.extractNumbers(parseInput);
+    const numbers = this.extractNumbers(numberString);
 
-    inputValidation(parseInput, this.#separators);
+    inputValidation(numberString, this.#separators);
 
     const result = this.sumNumbers(numbers);
 
@@ -51,7 +51,8 @@ class App {
     );
 
     const startIndex = hasCustomSeparator ? inputString.indexOf('\\n') + 2 : 0;
-    return inputString.slice(startIndex);
+    const numberString = inputString.slice(startIndex);
+    return numberString;
   }
 
   sumNumbers(numbers) {
