@@ -1,4 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
 import MESSAGES from './constants/message.js';
 
 export const inputValidation = (userString, separators) => {
